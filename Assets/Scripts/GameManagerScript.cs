@@ -13,14 +13,16 @@ public class GameManagerScript : MonoBehaviour
     private int score;
     [SerializeField] private GameObject HUD;
 
+
+
     void Start()
     {
         numberOfBallsLeft = numberOfBallsMaxPerGame;
 
-        // On spawn la première boule
+        // On spawn la premiï¿½re boule
         spawnBall();
 
-        // On s'abonne à l'événement "BallDestroyed" de la classe BallScript
+        // On s'abonne ï¿½ l'ï¿½vï¿½nement "BallDestroyed" de la classe BallScript
         //BallScript.BallDestroyed += OnBallDestroyed;
         score = 0;
     }
@@ -36,14 +38,14 @@ public class GameManagerScript : MonoBehaviour
 
     }
 
-    void spawnBall()
+    public void spawnBall()
     {
         if (numberOfBallsLeft > 0)
         {
             // on fait spawn une boule
             ballSpawner.GetComponent<BallSpawnerScript>().SpawnBall();
 
-            // On décrémente le nombre de boules restantes
+            // On dï¿½crï¿½mente le nombre de boules restantes
             numberOfBallsLeft--;
         }
         else
