@@ -39,7 +39,7 @@ public class PlungerScript : MonoBehaviour
             {
                 if (power <= maxPower)
                 {
-                    power += 250f * Time.deltaTime;
+                    power += 500f * Time.deltaTime;
                 }
             }
             if (Input.GetKeyUp(KeyCode.Return))
