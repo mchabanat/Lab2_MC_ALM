@@ -22,6 +22,8 @@ public class GameManagerScript : MonoBehaviour
     //PauseMenu
     private bool isPaused = false;
 
+    //CameraShake
+    [SerializeField] GameObject mainCam;
     void Start()
     {
         numberOfBallsLeft = numberOfBallsMaxPerGame;
@@ -57,6 +59,7 @@ public class GameManagerScript : MonoBehaviour
         if (numberOfBallsLeft > 0)
         {
             // on fait spawn une boule
+            ballSpawner.GetComponent<BallSpawnerScript>().SetGameManager(this);
             ballSpawner.GetComponent<BallSpawnerScript>().SpawnBall();
 
             // On d�cr�mente le nombre de boules restantes
@@ -130,5 +133,10 @@ public class GameManagerScript : MonoBehaviour
     {
         saveActualScore();
         UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+    }
+
+    public void shakeCamera(float force)
+    {
+        mainCam.GetComponent<cameraShake>().Shake(force);
     }
 }
