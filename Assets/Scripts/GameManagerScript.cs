@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,8 +11,13 @@ public class GameManagerScript : MonoBehaviour
     [SerializeField] private int numberOfBallsLeft;
     [SerializeField] private GameObject ballSpawner;
 
+    //Score
     private int score;
     [SerializeField] private GameObject HUD;
+
+    //TopScores
+    private List<int> bestScores;
+    [SerializeField] private int maxScoreToKeep;
 
     void Start()
     {
@@ -23,6 +29,7 @@ public class GameManagerScript : MonoBehaviour
         // On s'abonne à l'événement "BallDestroyed" de la classe BallScript
         //BallScript.BallDestroyed += OnBallDestroyed;
         score = 0;
+        loadBestScores();
     }
 
     void Update()
@@ -58,5 +65,29 @@ public class GameManagerScript : MonoBehaviour
     {
         score += scoreAmnt;
         HUD.GetComponent<HUDScript>().updateScore(score);
+    }
+
+    private void loadBestScores()
+    {
+        if (PlayerPrefs.HasKey("BestScores"))
+        {
+            string scoresString = PlayerPrefs.GetString("BestScores");
+            bestScores = scoresString.Split(',').Select(int.Parse).ToList();
+        }
+    }
+
+    private void saveBestScores()
+    {
+        string scoresString = string.Join(",", bestScores.Select(x => x.ToString()).ToArray());
+
+        PlayerPrefs.SetString("BestScores", scoresString);
+        PlayerPrefs.Save();
+    }
+
+    private void saveActualScore()
+    {
+        bestScores.Add(score);
+        bestScores = bestScores.OrderByDescending(s => s).Take(maxScoreToKeep).ToList();
+        saveBestScores();
     }
 }
