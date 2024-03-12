@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
+using System.Drawing;
+using Color = UnityEngine.Color;
 
 public class HUDScript : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI scoreText;
     private GameManagerScript gameManager;
+    [SerializeField] private TextMeshProUGUI ballsRemainingText;
+    [SerializeField] private TextMeshProUGUI multiBallModeText;
 
     //Menu Pause
     [SerializeField] private GameObject pauseMenu;
@@ -50,4 +54,27 @@ public class HUDScript : MonoBehaviour
     {
         gameManager = gm;
     }
+
+    public void updateBallsRemaining(int balls)
+    {
+        ballsRemainingText.text = "Balles restantes : "+balls.ToString();
+    }
+
+    public void updateMultiBallMode(bool multiBallMode)
+    {
+        if (multiBallMode)
+        {
+            multiBallModeText.text = "Mode multiboules activ�";
+            // Texte en vert
+            multiBallModeText.color = Color.green;
+
+        } else
+        {
+            multiBallModeText.text = "Mode multiboules d�sactiv�";
+            // Texte en rouge
+            multiBallModeText.color = Color.red;
+        }
+    }
+
+
 }

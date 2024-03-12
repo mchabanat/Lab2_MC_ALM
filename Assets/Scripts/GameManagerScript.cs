@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class GameManagerScript : MonoBehaviour
 {
-    [SerializeField] private bool multiBallModeIsActivated = false;
+    [SerializeField] private bool multiBallModeIsActivated;
     [SerializeField] private int numberOfBallsMaxPerGame = 6;
     [SerializeField] private int numberOfBallsLeft;
     [SerializeField] private GameObject ballSpawner;
@@ -18,6 +18,8 @@ public class GameManagerScript : MonoBehaviour
     //TopScores
     private List<int> bestScores;
     [SerializeField] private int maxScoreToKeep;
+    [SerializeField] private GameObject[] stepCircles;
+    [SerializeField] private int stepCirclesActivated = 0;
 
     //PauseMenu
     private bool isPaused = false;
@@ -26,13 +28,12 @@ public class GameManagerScript : MonoBehaviour
     [SerializeField] GameObject mainCam;
     void Start()
     {
-        numberOfBallsLeft = numberOfBallsMaxPerGame;
+        setNumberOfBallsLeft(numberOfBallsMaxPerGame);
+        setMultiBallModeIsActivated(false);
 
         // On spawn la premi�re boule
         spawnBall();
 
-        // On s'abonne � l'�v�nement "BallDestroyed" de la classe BallScript
-        //BallScript.BallDestroyed += OnBallDestroyed;
         score = 0;
         loadBestScores();
         isPaused = false;
@@ -44,7 +45,7 @@ public class GameManagerScript : MonoBehaviour
         // Quand on appuie sur G, on active/desactive le mode multiboules
         if (Input.GetKeyDown(KeyCode.G))
         {
-            multiBallModeIsActivated = !multiBallModeIsActivated;
+            setMultiBallModeIsActivated(!getMultiBallModeIsActivated());
         }
 
         //Pause
@@ -52,6 +53,8 @@ public class GameManagerScript : MonoBehaviour
         {
             pause();
         }
+        stepCirclesCheck();
+
     }
 
     public void spawnBall()
@@ -63,7 +66,7 @@ public class GameManagerScript : MonoBehaviour
             ballSpawner.GetComponent<BallSpawnerScript>().SpawnBall();
 
             // On d�cr�mente le nombre de boules restantes
-            numberOfBallsLeft--;
+            setNumberOfBallsLeft(getNumberOfBallsLeft()-1);
         }
         else
         {
@@ -138,5 +141,63 @@ public class GameManagerScript : MonoBehaviour
     public void shakeCamera(float force)
     {
         mainCam.GetComponent<cameraShake>().Shake(force);
+    }
+
+    public void updateBallsRemainingText()
+    {
+        HUD.GetComponent<HUDScript>().updateBallsRemaining(getNumberOfBallsLeft());
+    }
+
+    // Setter et getter de numberOfBallsLeft
+    public int getNumberOfBallsLeft()
+    {
+        return numberOfBallsLeft;
+    }
+    public void setNumberOfBallsLeft(int value)
+    {
+        numberOfBallsLeft = value;
+        updateBallsRemainingText();
+    }
+
+    public void stepCirclesCheck()
+    {
+        if (getStepCirclesActivated() == stepCircles.Length)
+        {
+            // On a gagné incrémenter le score
+            addScore(1000);
+
+            // Le joueur gagne une boule supplémentaire
+            setNumberOfBallsLeft(getNumberOfBallsLeft()+1);
+
+            // On remet les materiaux des cercles à leur état initial
+            foreach (GameObject stepCircle in stepCircles)
+            {
+                stepCircle.GetComponent<ActivateStepCirclesScript>().changeMaterial(stepCircle.GetComponent<ActivateStepCirclesScript>().getInactiveMaterial());
+            }
+
+            // On remet le compteur de cercles activés à 0
+            setStepCirclesActivated(0);
+        }
+    }
+
+    public int getStepCirclesActivated()
+    {
+        return stepCirclesActivated;
+    }
+
+    public void setStepCirclesActivated(int value)
+    {
+        stepCirclesActivated = value;
+    }
+
+    public bool getMultiBallModeIsActivated()
+    {
+        return multiBallModeIsActivated;
+    }
+
+    public void setMultiBallModeIsActivated(bool value)
+    {
+        multiBallModeIsActivated = value;
+        HUD.GetComponent<HUDScript>().updateMultiBallMode(multiBallModeIsActivated);
     }
 }
