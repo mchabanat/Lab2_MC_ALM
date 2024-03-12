@@ -17,7 +17,7 @@ public class GameManagerScript : MonoBehaviour
 
     void Start()
     {
-        numberOfBallsLeft = numberOfBallsMaxPerGame;
+        setNumberOfBallsLeft(numberOfBallsMaxPerGame);
 
         // On spawn la premi�re boule
         spawnBall();
@@ -46,7 +46,7 @@ public class GameManagerScript : MonoBehaviour
             ballSpawner.GetComponent<BallSpawnerScript>().SpawnBall();
 
             // On d�cr�mente le nombre de boules restantes
-            numberOfBallsLeft--;
+            setNumberOfBallsLeft(getNumberOfBallsLeft()-1);
         }
         else
         {
@@ -60,5 +60,21 @@ public class GameManagerScript : MonoBehaviour
     {
         score += scoreAmnt;
         HUD.GetComponent<HUDScript>().updateScore(score);
+    }
+
+    public void updateBallsRemainingText()
+    {
+        HUD.GetComponent<HUDScript>().updateBallsRemaining(numberOfBallsLeft);
+    }
+
+    // Setter et getter de numberOfBallsLeft
+    public int getNumberOfBallsLeft()
+    {
+        return numberOfBallsLeft;
+    }
+    public void setNumberOfBallsLeft(int value)
+    {
+        numberOfBallsLeft = value;
+        updateBallsRemainingText();
     }
 }
