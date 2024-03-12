@@ -206,7 +206,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 12087226}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 935104716}
+        m_TargetAssemblyTypeName: HUDScript, Assembly-CSharp
+        m_MethodName: btnQuit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &12087226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -362,12 +374,12 @@ GameObject:
   - component: {fileID: 100198455}
   - component: {fileID: 100198454}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: pausePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &100198453
 RectTransform:
   m_ObjectHideFlags: 0
@@ -767,7 +779,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 214975288}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 935104716}
+        m_TargetAssemblyTypeName: HUDScript, Assembly-CSharp
+        m_MethodName: btnRetry
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &214975288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -978,7 +1002,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.8792853}
-  m_AnchoredPosition: {x: 0.50006104, y: 27.995605}
+  m_AnchoredPosition: {x: 0.50006104, y: 27.992188}
   m_SizeDelta: {x: -683.0548, y: -58.9478}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &317221843
@@ -2454,6 +2478,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 1318467043}
+  pauseMenu: {fileID: 100198452}
+  txtTopBestScore: {fileID: 317221843}
 --- !u!1 &973982164
 GameObject:
   m_ObjectHideFlags: 0
@@ -3575,7 +3601,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0.000015259, y: -77.87378}
+  m_AnchoredPosition: {x: 0.000015259, y: -77.875}
   m_SizeDelta: {x: 484.8855, y: 112.9397}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1318467043
@@ -5055,7 +5081,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2041391154}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 935104716}
+        m_TargetAssemblyTypeName: HUDScript, Assembly-CSharp
+        m_MethodName: btnContinue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2041391154
 MonoBehaviour:
   m_ObjectHideFlags: 0

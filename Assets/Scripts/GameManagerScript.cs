@@ -19,6 +19,9 @@ public class GameManagerScript : MonoBehaviour
     private List<int> bestScores;
     [SerializeField] private int maxScoreToKeep;
 
+    //PauseMenu
+    private bool isPaused = false;
+
     void Start()
     {
         numberOfBallsLeft = numberOfBallsMaxPerGame;
@@ -30,6 +33,8 @@ public class GameManagerScript : MonoBehaviour
         //BallScript.BallDestroyed += OnBallDestroyed;
         score = 0;
         loadBestScores();
+        isPaused = false;
+        HUD.GetComponent<HUDScript>().setGameManager(this);
     }
 
     void Update()
@@ -40,7 +45,11 @@ public class GameManagerScript : MonoBehaviour
             multiBallModeIsActivated = !multiBallModeIsActivated;
         }
 
-
+        //Pause
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            pause();
+        }
     }
 
     void spawnBall()
@@ -69,9 +78,14 @@ public class GameManagerScript : MonoBehaviour
 
     private void loadBestScores()
     {
+        bestScores = new List<int>();
         if (PlayerPrefs.HasKey("BestScores"))
         {
             string scoresString = PlayerPrefs.GetString("BestScores");
+            if (scoresString.Length == 0)
+            {
+                return;
+            }
             bestScores = scoresString.Split(',').Select(int.Parse).ToList();
         }
     }
@@ -84,10 +98,37 @@ public class GameManagerScript : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    private void saveActualScore()
+    public void saveActualScore()
     {
         bestScores.Add(score);
         bestScores = bestScores.OrderByDescending(s => s).Take(maxScoreToKeep).ToList();
         saveBestScores();
+    }
+
+    private void activePause(bool pause)
+    {
+        if (pause)
+        {
+            Time.timeScale = 0;
+            HUD.GetComponent<HUDScript>().showPauseMenu(true);
+            HUD.GetComponent<HUDScript>().updateTopBestScore(bestScores);
+        }
+        else
+        {
+            Time.timeScale = 1;
+            HUD.GetComponent<HUDScript>().showPauseMenu(false);
+        }
+
+    }
+    public void pause()
+    {
+        isPaused = !isPaused;
+        activePause(isPaused);
+    }
+
+    public void retry()
+    {
+        saveActualScore();
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
 }
