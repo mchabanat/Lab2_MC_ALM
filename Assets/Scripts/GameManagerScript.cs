@@ -9,6 +9,8 @@ public class GameManagerScript : MonoBehaviour
     [SerializeField] private int numberOfBallsLeft;
     [SerializeField] private GameObject ballSpawner;
 
+
+
     void Start()
     {
         numberOfBallsLeft = numberOfBallsMaxPerGame;
@@ -32,7 +34,7 @@ public class GameManagerScript : MonoBehaviour
 
     }
 
-    void spawnBall()
+    public void spawnBall()
     {
         if (numberOfBallsLeft > 0)
         {

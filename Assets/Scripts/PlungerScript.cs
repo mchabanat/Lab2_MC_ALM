@@ -7,7 +7,7 @@ public class PlungerScript : MonoBehaviour
 {
     [SerializeField] private float power;
     private float minPower = 0f;
-    private float maxPower = 300f;
+    private float maxPower = 500f;
     [SerializeField] private Slider powerSlider;
     private List<Rigidbody> ballList;
     private bool ballReady;
@@ -46,7 +46,7 @@ public class PlungerScript : MonoBehaviour
             {
                 foreach (Rigidbody ball in ballList)
                 {
-                    ball.AddForce(power*Vector3.forward);
+                    ball.AddForce(power * Vector3.forward);
                 }
             }
         } else
@@ -54,6 +54,7 @@ public class PlungerScript : MonoBehaviour
             ballReady = false;
             power = 0f;
         }
+
     }
 
     private void OnTriggerEnter(Collider other)

@@ -2262,6 +2262,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ballPrefab: {fileID: 4858849585371291064, guid: cf53c0c21a5249d4ebc2d9bef16767fa,
     type: 3}
+  gamePlate: {fileID: 1109872692}
 --- !u!1 &1109872692
 GameObject:
   m_ObjectHideFlags: 0
@@ -3174,7 +3175,7 @@ HingeJoint:
   m_Anchor: {x: 0.5, y: 0, z: 0}
   m_Axis: {x: 0, y: 1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.9982078, y: -0.69065386, z: -2.1899354}
+  m_ConnectedAnchor: {x: 0.9982078, y: -0.8788904, z: -2.1214077}
   serializedVersion: 2
   m_UseSpring: 0
   m_Spring:
@@ -3414,6 +3415,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1827626341}
   - component: {fileID: 1827626342}
+  - component: {fileID: 1827626343}
   m_Layer: 0
   m_Name: BallEnd
   m_TagString: Untagged
@@ -3457,6 +3459,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5, y: 0.3, z: 0.2364339}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1827626343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827626340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fddb4dc338071864caac72878472eca4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 881318023}
 --- !u!1 &1859243701
 GameObject:
   m_ObjectHideFlags: 0
