@@ -7,6 +7,8 @@ public class BallSpawnerScript : MonoBehaviour
     [SerializeField] private GameObject ballPrefab;
     [SerializeField] private GameObject gamePlate;
 
+    private GameManagerScript gameManager;
+
     public void SpawnBall()
     {
         // On récupère la position du spawner de boules
@@ -15,6 +17,12 @@ public class BallSpawnerScript : MonoBehaviour
         Quaternion rotation = gamePlate.transform.rotation;
 
         // on fait spawn une boule
-        Instantiate(ballPrefab, position, rotation);
+        GameObject ball = Instantiate(ballPrefab, position, rotation);
+        ball.GetComponent<ballScript>().setGameManager(gameManager);
+    }
+
+    public void SetGameManager(GameManagerScript gm)
+    {
+        gameManager = gm;
     }
 }

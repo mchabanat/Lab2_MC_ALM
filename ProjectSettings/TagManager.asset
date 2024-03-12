@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ball
   - Ball end
+  - obstacle
   layers:
   - Default
   - TransparentFX
