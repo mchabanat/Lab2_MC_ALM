@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManagerScript : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class GameManagerScript : MonoBehaviour
     [SerializeField] private int numberOfBallsMaxPerGame = 6;
     [SerializeField] private int numberOfBallsLeft;
     [SerializeField] private GameObject ballSpawner;
+
+    private int score;
+    [SerializeField] private GameObject HUD;
 
     void Start()
     {
@@ -18,7 +22,7 @@ public class GameManagerScript : MonoBehaviour
 
         // On s'abonne à l'événement "BallDestroyed" de la classe BallScript
         //BallScript.BallDestroyed += OnBallDestroyed;
-
+        score = 0;
     }
 
     void Update()
@@ -41,11 +45,18 @@ public class GameManagerScript : MonoBehaviour
 
             // On décrémente le nombre de boules restantes
             numberOfBallsLeft--;
-        } else
+        }
+        else
         {
             // Fin
             Debug.Log("Game Over");
         }
-        
+
+    }
+
+    public void addScore(int scoreAmnt)
+    {
+        score += scoreAmnt;
+        HUD.GetComponent<HUDScript>().updateScore(score);
     }
 }
