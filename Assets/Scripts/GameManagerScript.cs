@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.UI;
 
 public class GameManagerScript : MonoBehaviour
@@ -15,6 +16,8 @@ public class GameManagerScript : MonoBehaviour
 
     [SerializeField] private GameObject[] stepCircles;
     [SerializeField] private int stepCirclesActivated = 0;
+    [SerializeField] private bool doorIsOpen = false;
+    [SerializeField] private GameObject door;
 
     void Start()
     {
@@ -88,6 +91,13 @@ public class GameManagerScript : MonoBehaviour
 
             // Le joueur gagne une boule supplémentaire
             setNumberOfBallsLeft(getNumberOfBallsLeft()+1);
+
+            // On ouvre la porte si elle est fermée
+            if (!doorIsOpen)
+            {
+                door.GetComponent<DoorScript>().openDoor();
+                doorIsOpen = true;
+            }
 
             // On remet les materiaux des cercles à leur état initial
             foreach (GameObject stepCircle in stepCircles)
