@@ -8,15 +8,25 @@ public class ActivateStepCirclesScript : MonoBehaviour
     [SerializeField] private Material inactiveMaterial;
     [SerializeField] private GameObject gameManager;
 
+    private bool isActivated = false;
+
+    private void Start()
+    {
+        isActivated = false;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Ball"))
         {
-            // Changer le matériel du sprite du cercle avec le matériel activeMaterial
-            changeMaterial(getActiveMaterial());
-
-            // Incrémenter le nombre de cercles activés
-            gameManager.GetComponent<GameManagerScript>().setStepCirclesActivated(gameManager.GetComponent<GameManagerScript>().getStepCirclesActivated()+1);
+            if (!isActivated)
+            {
+                isActivated = true;
+                // Changer le matériel du sprite du cercle avec le matériel activeMaterial
+                changeMaterial(getActiveMaterial());
+                // Incrémenter le nombre de cercles activés
+                gameManager.GetComponent<GameManagerScript>().setStepCirclesActivated(gameManager.GetComponent<GameManagerScript>().getStepCirclesActivated() + 1);
+            }
         }
     }
 
@@ -34,4 +44,11 @@ public class ActivateStepCirclesScript : MonoBehaviour
     {
         return inactiveMaterial;
     }
+
+    public void desactivate()
+    {
+        isActivated = false;
+        changeMaterial(getInactiveMaterial());
+    }
+    
 }

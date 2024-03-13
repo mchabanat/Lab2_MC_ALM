@@ -34,7 +34,7 @@ public class HUDScript : MonoBehaviour
         }
         for (int i = 0; i < topFiveScores.Count; i++)
         {
-            txtTopBestScore.text += i + 1.ToString() + " : " + topFiveScores[i] + "\n";
+            txtTopBestScore.text += (i+1).ToString() + " : " + topFiveScores[i] + "\n";
         }
     }
     public void btnContinue()
@@ -70,7 +70,7 @@ public class HUDScript : MonoBehaviour
 
         } else
         {
-            multiBallModeText.text = "Mode multiboules d�sactiv�";
+            multiBallModeText.text = "Mode multiboules désactivé";
             // Texte en rouge
             multiBallModeText.color = Color.red;
         }
