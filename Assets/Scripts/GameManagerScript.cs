@@ -31,6 +31,7 @@ public class GameManagerScript : MonoBehaviour
     [SerializeField] GameObject mainCam;
     void Start()
     {
+        Time.timeScale = 1;
         setNumberOfBallsLeft(numberOfBallsMaxPerGame);
         setMultiBallModeIsActivated(false);
 
@@ -102,7 +103,6 @@ public class GameManagerScript : MonoBehaviour
     private void saveBestScores()
     {
         string scoresString = string.Join(",", bestScores.Select(x => x.ToString()).ToArray());
-
         PlayerPrefs.SetString("BestScores", scoresString);
         PlayerPrefs.Save();
     }
@@ -110,7 +110,8 @@ public class GameManagerScript : MonoBehaviour
     public void saveActualScore()
     {
         bestScores.Add(score);
-        bestScores = bestScores.OrderByDescending(s => s).Take(maxScoreToKeep).ToList();
+        bestScores = bestScores.OrderByDescending(x => x).ToList();
+        bestScores = bestScores.Take(maxScoreToKeep).ToList();
         saveBestScores();
     }
 
@@ -178,15 +179,17 @@ public class GameManagerScript : MonoBehaviour
                 door.GetComponent<DoorScript>().openDoor();
                 doorIsOpen = true;
             }
+            // On remet le compteur de cercles activés à 0
+            setStepCirclesActivated(0);
 
             // On remet les materiaux des cercles à leur état initial
             foreach (GameObject stepCircle in stepCircles)
             {
-                stepCircle.GetComponent<ActivateStepCirclesScript>().changeMaterial(stepCircle.GetComponent<ActivateStepCirclesScript>().getInactiveMaterial());
+                stepCircle.GetComponent<ActivateStepCirclesScript>().desactivate();
+
             }
 
-            // On remet le compteur de cercles activés à 0
-            setStepCirclesActivated(0);
+
         }
     }
 

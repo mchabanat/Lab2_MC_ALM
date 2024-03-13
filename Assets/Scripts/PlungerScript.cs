@@ -64,6 +64,7 @@ public class PlungerScript : MonoBehaviour
             ballList.Add(other.GetComponent<Rigidbody>());
         }
     }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Ball"))
